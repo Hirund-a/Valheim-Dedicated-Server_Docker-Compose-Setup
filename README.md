@@ -1,4 +1,4 @@
-# Valheim Docker-compose Setup
+# Valheim Dedicated Server - Docker-compose Setup
 
 ## Table of Contents
 
