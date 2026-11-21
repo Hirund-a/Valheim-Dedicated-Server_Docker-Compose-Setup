@@ -75,7 +75,7 @@ Note: `WORLD_NAME` will dictate the name of the world save file. If you decide t
 
 4. After the image is successfully pulled, run the server container using the following `docker-compose` command:
     ```
-    docker-compose up -d
+    docker compose up -d
     ```
 
 ---
@@ -98,6 +98,29 @@ The Valheim server will be very verbose, but the following log message will show
 Session "# default =My Server" with join code XXXXXX and IP XXX.XXX.XXX.XXX:XXXX is active with 0 player(s)
 ```
 As the server gets deployed for the first time, you will notice the creation of a `valheim-server` directory/folder. This will house the data to get the server software downloaded on your machine using SteamCmd (under `valheim-server/data`) as well as the server configuration and the game world save files (under `valheim-server/config`)
+
+## Updating the Valheim Server Manually
+
+The base docker image includes an auto-updater that checks every 15 mins (Or a different time you can set up with the `` CRON environment variable) whether the Valheim server is out of date compared to the version available on Steam. However, if you wish to forcefully update the server version: 
+
+1. Stop your server with 
+    ```
+    docker compose down
+    ```
+
+2. In your repository, remove the `valheim-server/data` directory
+
+> [!WARNING]  
+> Do not remove the `valheim-server/config` directory! This is where your world save data and backups live!
+
+2. (Optional) While it is most likely the Valheim server software being out of date will cause you an issue, you may also encounter issues with an out of date docker image too. Remove the docker image and re-pull it like so:
+    ```
+    docker image rmi lloesche/valheim-server
+
+    docker pull lloesche/valheim-server
+    ```
+3. Restart the server with docker compose (as you would normally deploy it), the container will automatically download and install the server software just as if it were deployed for the first time.
+
 
 ## Further Documentation
 
