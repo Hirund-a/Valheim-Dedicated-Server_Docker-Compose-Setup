@@ -1,2 +1,4 @@
 /valheim-server/config
 /valheim-server/data
+
+*.DS_Store
